@@ -64,5 +64,11 @@ public class BaseScreenHandler extends FXMLScreenHandler {
 	public void setHomeScreenHandler(HomeScreenHandler HomeScreenHandler) {
 		this.homeScreenHandler = HomeScreenHandler;
 	}
+	public void returnToPrevScreen() {
+		getPreviousScreen().show();
+	}
+	public void returnToHomeScreen() {
+		this.homeScreenHandler.show();
+	}
 
 }

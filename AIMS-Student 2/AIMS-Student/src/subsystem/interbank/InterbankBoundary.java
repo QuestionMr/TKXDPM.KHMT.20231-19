@@ -16,4 +16,14 @@ public class InterbankBoundary {
 		return response;
 	}
 
+	public String getReturnLink(String string) {
+		String response = null;
+		try {
+			response = API.get(string,"");
+		} catch (Exception e) {
+			throw new UnrecognizedException();
+		}
+		return response;
+	}
+
 }

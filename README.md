@@ -25,7 +25,7 @@ This is a Capstone's source code for Software Design and Construction project
   - Partial implementation of connection to VNPay (incomplete)
 
 - Implementation details:
-  - Pull Request(s): [Attach links to your pull requests here. You can attach multiple pull requests]()
+  - Pull Request(s): [Test](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/1)
   - Specific implementation details:
     - Cancel and back buttons added to fxml files to allow going back to previous screens
     - Validation functions of name, card number, and security code

@@ -42,7 +42,7 @@ This is a Capstone's source code for Software Design and Construction project
 - Implementation details:
   - Pull Request(s): [Test](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/2)
 </details>
-
+=
 <details>
 <summary>Nguyễn Tống Sang</summary>
 <br>
@@ -50,7 +50,6 @@ This is a Capstone's source code for Software Design and Construction project
 - Assigned tasks:
   - Create branch test for me
   - Do work related to PlaceOrder
-
 - Implementation details:
   - Pull Request(s): [Test](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/3)
 </details>

@@ -53,5 +53,14 @@ This is a Capstone's source code for Software Design and Construction project
 - Implementation details:
   - Pull Request(s): [Test](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/3)
 </details>
+<details>
+<summary>Trần Hồng Quý</summary>
+<br>
+
+- Assigned tasks:
+  - Create branch test for me
+  - Do work related to UI
+- Implementation details:
+</details>
 </details>
 ---

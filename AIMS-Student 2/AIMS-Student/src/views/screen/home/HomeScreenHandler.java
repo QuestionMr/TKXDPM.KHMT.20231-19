@@ -106,6 +106,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         
         cartImage.setOnMouseClicked(e -> {
             CartScreenHandler cartScreen;
+            // control coupling
             try {
                 LOGGER.info("User clicked to view cart");
                 cartScreen = new CartScreenHandler(this.stage, Configs.CART_SCREEN_PATH);

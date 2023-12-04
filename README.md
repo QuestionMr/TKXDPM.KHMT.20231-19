@@ -40,7 +40,8 @@ This is a Capstone's source code for Software Design and Construction project
   - Create branch test for me
   - Do work related to ViewCart
 - Implementation details:
-  - Pull Request(s): [Test](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/2)
+  - Pull Request(s): [Test](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/6)
+  - Comment control coupling relate to ViewCart
 </details>
 </details>
 

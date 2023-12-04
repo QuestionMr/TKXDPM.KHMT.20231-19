@@ -88,7 +88,7 @@ public class CartScreenHandler extends BaseScreenHandler {
 	public Label getLabelSubtotal() {
 		return labelSubtotal;
 	}
-
+//  Control coupling
 	public ViewCartController getBController(){
 		return (ViewCartController) super.getBController();
 	}

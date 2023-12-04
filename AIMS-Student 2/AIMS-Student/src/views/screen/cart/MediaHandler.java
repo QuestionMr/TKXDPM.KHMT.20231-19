@@ -89,6 +89,7 @@ public class MediaHandler extends FXMLScreenHandler {
 				LOGGER.info("Deleted " + cartMedia.getMedia().getTitle() + " from the cart");
 			} catch (SQLException exp) {
 				exp.printStackTrace();
+				// control coupling
 				throw new ViewCartException();
 			}
 		});

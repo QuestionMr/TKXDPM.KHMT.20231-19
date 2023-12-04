@@ -6,6 +6,7 @@ package common.exception;;
  * 
  * @author nguyenlm
  */
+// cotrol coupling
 public class ViewCartException extends AimsException {
 
 	private static final long serialVersionUID = 1091337136123906298L;

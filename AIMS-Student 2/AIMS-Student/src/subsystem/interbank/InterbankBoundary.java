@@ -5,6 +5,7 @@ import utils.API;
 
 public class InterbankBoundary {
 
+	//Data coupling (url, data with API.post)
 	String query(String url, String data) {
 		String response = null;
 		try {
@@ -16,6 +17,7 @@ public class InterbankBoundary {
 		return response;
 	}
 
+	//Data coupling (string with API.get)
 	public String getReturnLink(String string) {
 		String response = null;
 		try {

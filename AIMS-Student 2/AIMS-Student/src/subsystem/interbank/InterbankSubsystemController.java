@@ -36,6 +36,7 @@ public class InterbankSubsystemController {
 
 	private static InterbankBoundary interbankBoundary = new InterbankBoundary();
 
+	//Stamp coupling (CreditCard, int, String, all not used)
 	public PaymentTransaction refund(CreditCard card, int amount, String contents) {
 		return null;
 	}
@@ -44,6 +45,7 @@ public class InterbankSubsystemController {
 		return ((MyMap) data).toJSON();
 	}
 
+	//Stamp coupling (Creditcard) - used, data coupling (int amount, String contents)
 	public PaymentTransaction payOrder(CreditCard card, int amount, String contents) {
 		Map<String, Object> transaction = new MyMap();
 
@@ -53,6 +55,7 @@ public class InterbankSubsystemController {
 			// TODO Auto-generated catch block
 			throw new InvalidCardException();
 		}
+		//Content coupling: tight (Modifying transaction with put())
 		transaction.put("command", PAY_COMMAND);
 		transaction.put("transactionContent", contents);
 		transaction.put("amount", amount);
@@ -71,9 +74,11 @@ public class InterbankSubsystemController {
 			throw new UnrecognizedException();
 		}
 
+		//Control coupling: makePaymentTransaction behaves differently according to argument "response" (91)
 		return makePaymentTransaction(response);
 	}
 	
+	//Stamp coupling (MyMap - used)
 	private PaymentTransaction makePaymentTransaction(MyMap response) {
 		if (response == null)
 			return null;
@@ -108,6 +113,7 @@ public class InterbankSubsystemController {
 		return trans;
 	}
 	
+	//Data coupling (int, String)
 	public static String connectToVNPay(int amount, String contents) {
 		String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
@@ -190,6 +196,7 @@ public class InterbankSubsystemController {
         String queryUrl = query.toString();
         String vnp_SecureHash = "3e0d61a0c0534b2e36680b3f7277743e8784cc4e1d68fa7d276e79c23be7d6318d338b477910a27992f5057bb1582bd44bd82ae8009ffaf6d141219218625c42";
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
+		//Common coupling (Global variable Configs.PROCESS_TRANSACTION_URL of Configs class)
 		String responseText = interbankBoundary.getReturnLink(Configs.PROCESS_TRANSACTION_URL + "?" + queryUrl);
 		return responseText;
 	}

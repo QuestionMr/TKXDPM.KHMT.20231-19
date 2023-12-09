@@ -8,27 +8,40 @@ import entity.cart.Cart;
 import entity.cart.CartMedia;
 
 /**
- * This class controls the flow of events when users view the Cart
+ * Manages actions related to the Cart view.
+ * Controls the flow of events when users interact with the Cart.
  * @author nguyenlm
  */
-// Controll coupling
 public class ViewCartController extends BaseController{
     
     /**
-     * This method checks the available products in Cart
-     * @throws SQLException
+     * Checks the availability of products in the Cart.
+     * @throws SQLException if there's an issue with database operations
+     * Coupling: Control Coupling - directly depends on Cart's availability check method.
      */
     public void checkAvailabilityOfProduct() throws SQLException{
         Cart.getCart().checkAvailabilityOfProduct();
     }
 
     /**
-     * This method calculates the cart subtotal
-     * @return subtotal
+     * Calculates the cart subtotal.
+     * @return subtotal of the Cart
+     * Coupling: Control Coupling - directly depends on Cart's subtotal calculation method.
      */
     public int getCartSubtotal(){
         int subtotal = Cart.getCart().calSubtotal();
         return subtotal;
     }
 
+    /**
+     * Comments on Cohesion:
+     * These methods have low cohesion since they are performing distinct tasks
+     * (checking availability and calculating subtotal) not directly related.
+     */
+
+    /**
+     * Comments on Coupling:
+     * The class exhibits Control Coupling by directly invoking methods from the Cart entity.
+     * This tight dependency could lead to maintenance issues if Cart's internals change.
+     */
 }

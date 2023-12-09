@@ -27,6 +27,8 @@ import utils.Configs;
 import utils.MyMap;
 import utils.Utils;
 
+//Communication cohesion (All variables inside this class are accessible only through methods)
+//Logical cohesion: refund, generate data, payorder, makePaymentTransaction
 public class InterbankSubsystemController {
 
 	private static final String PUBLIC_KEY = "AQzdE8O/fR8=";
@@ -36,6 +38,7 @@ public class InterbankSubsystemController {
 
 	private static InterbankBoundary interbankBoundary = new InterbankBoundary();
 
+	
 	//Stamp coupling (CreditCard, int, String, all not used)
 	public PaymentTransaction refund(CreditCard card, int amount, String contents) {
 		return null;
@@ -56,6 +59,8 @@ public class InterbankSubsystemController {
 			throw new InvalidCardException();
 		}
 		//Content coupling: tight (Modifying transaction with put())
+		//Functional cohesion: transaction.put
+		//Sequential cohesion: transaction -> responseText -> response -> makePaymentTransaction
 		transaction.put("command", PAY_COMMAND);
 		transaction.put("transactionContent", contents);
 		transaction.put("amount", amount);
@@ -82,6 +87,7 @@ public class InterbankSubsystemController {
 	private PaymentTransaction makePaymentTransaction(MyMap response) {
 		if (response == null)
 			return null;
+		//Sequential cohesion: transactio -> card -> trans
 		MyMap transcation = (MyMap) response.get("transaction");
 		CreditCard card = new CreditCard((String) transcation.get("cardCode"), (String) transcation.get("owner"),
 				Integer.parseInt((String) transcation.get("cvvCode")), (String) transcation.get("dateExpired"));
@@ -123,6 +129,7 @@ public class InterbankSubsystemController {
         String vnp_IpAddr = "127.0.0.1";
         String vnp_TmnCode = "DEMOV210";
 
+		//Functional cohesion: vnp_Params.put
         Map vnp_Params = new HashMap<>();
         vnp_Params.put("vnp_Version", vnp_Version);
         vnp_Params.put("vnp_Command", vnp_Command);
@@ -193,6 +200,7 @@ public class InterbankSubsystemController {
                 }
             }
         }
+		//Sequential cohesion: queryUrl -> vnp_Securehash -> queryUrl -> responseText -> return
         String queryUrl = query.toString();
         String vnp_SecureHash = "3e0d61a0c0534b2e36680b3f7277743e8784cc4e1d68fa7d276e79c23be7d6318d338b477910a27992f5057bb1582bd44bd82ae8009ffaf6d141219218625c42";
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;

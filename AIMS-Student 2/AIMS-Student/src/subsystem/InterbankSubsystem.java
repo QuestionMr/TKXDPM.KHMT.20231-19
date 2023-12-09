@@ -44,7 +44,6 @@ public class InterbankSubsystem implements InterbankInterface {
 	 * @see InterbankInterface#refund(entity.payment.CreditCard, int,
 	 *      java.lang.String)
 	 */
-		//Data coupling (CreditCard, int, String)
 
 	//Data coupling (CreditCard, int, String with ctrl.refund)
 	public PaymentTransaction refund(CreditCard card, int amount, String contents) {

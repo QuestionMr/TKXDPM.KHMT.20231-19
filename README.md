@@ -68,3 +68,20 @@ This is a Capstone's source code for Software Design and Construction project
 </details>
 </details>
 ---
+<details>
+  <summary>W1: 04/11/2023~10/12/2023 </summary>
+<br>
+<details>
+<summary>Bùi Ngọc Quang</summary>
+<br>
+
+- Assigned tasks:
+  - Comment cohesion on interbank subsystem
+
+- Implementation details:
+  - Pull Request(s): [Request]()
+  - Specific implementation details:
+    - Comment cohesion on interbank subsystem
+
+</details>
+</details>

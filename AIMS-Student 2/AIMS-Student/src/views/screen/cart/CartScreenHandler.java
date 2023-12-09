@@ -26,6 +26,12 @@ import views.screen.BaseScreenHandler;
 import views.screen.popup.PopupScreen;
 import views.screen.shipping.ShippingScreenHandler;
 
+/**
+ * Manages the functionality and display related to the Cart screen.
+ * Handles interactions and flow within the Cart screen view.
+ * Control Coupling: Utilizes direct method calls from controllers, creating tight dependencies.
+ * Cohesion: Low cohesion observed due to handling multiple functionalities in a single class.
+ */
 public class CartScreenHandler extends BaseScreenHandler {
 
 	private static Logger LOGGER = Utils.getLogger(CartScreenHandler.class.getName());
@@ -88,11 +94,11 @@ public class CartScreenHandler extends BaseScreenHandler {
 	public Label getLabelSubtotal() {
 		return labelSubtotal;
 	}
-//  Control coupling
+//  Control coupling:Retrieves the ViewCartController directly from the super class.
 	public ViewCartController getBController(){
 		return (ViewCartController) super.getBController();
 	}
-
+	//Control Coupling: Directly calls methods from ViewCartController to perform operations
 	public void requestToViewCart(BaseScreenHandler prevScreen) throws SQLException {
 		setPreviousScreen(prevScreen);
 		setScreenTitle("Cart Screen");
@@ -100,7 +106,7 @@ public class CartScreenHandler extends BaseScreenHandler {
 		displayCartWithMediaAvailability();
 		show();
 	}
-
+	//Control Coupling:Directly interacts with PlaceOrderController methods, creating a tight dependency.
 	public void requestToPlaceOrder() throws SQLException, IOException {
 		try {
 			// create placeOrderController and process the order
@@ -131,7 +137,7 @@ public class CartScreenHandler extends BaseScreenHandler {
 			displayCartWithMediaAvailability();
 		}
 	}
-
+	//Control Coupling
 	public void updateCart() throws SQLException{
 		getBController().checkAvailabilityOfProduct();
 		displayCartWithMediaAvailability();
@@ -149,7 +155,7 @@ public class CartScreenHandler extends BaseScreenHandler {
 		labelVAT.setText(Utils.getCurrencyFormat(vat));
 		labelAmount.setText(Utils.getCurrencyFormat(amount));
 	}
-	
+	//Control Coupling: Utilizes methods from ViewCartController to fetch Cart media and display it.
 	private void displayCartWithMediaAvailability(){
 		// clear all old cartMedia
 		vboxCart.getChildren().clear();

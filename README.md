@@ -86,4 +86,17 @@ This is a Capstone's source code for Software Design and Construction project
     - Comment cohesion on interbank subsystem
 
 </details>
+
+<summary>Nguyễn Tống Sang</summary>
+<br>
+
+- Assigned tasks:
+  - Comment cohesion on payment subsystem
+
+- Implementation details:
+  - Pull Request(s): [Request](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/11)
+  - Specific implementation details:
+    - Comment cohesion on payment subsystem
+
+</details>
 </details>

@@ -47,7 +47,6 @@ This is a Capstone's source code for Software Design and Construction project
   - Pull Request(s): [Second request](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/9)
   - Comment control coupling relate to ViewCart
 </details>
-=
 <details>
 <summary>Nguyễn Tống Sang</summary>
 <br>
@@ -86,7 +85,7 @@ This is a Capstone's source code for Software Design and Construction project
     - Comment cohesion on interbank subsystem
 
 </details>
-
+<details>
 <summary>Nguyễn Tống Sang</summary>
 <br>
 

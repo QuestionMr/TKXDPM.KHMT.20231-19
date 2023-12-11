@@ -70,23 +70,6 @@ This is a Capstone's source code for Software Design and Construction project
 </details>
 
 <details>
-  <summary>W2: 04/12/2023~10/12/2023 </summary>
-<br>
-<details>
-<summary>Trần Hồng Quý</summary>
-<br>
-
-- Assigned tasks:
-  - Comment coupling and cohesion on shipping views
-- Implementation details:
-  - Pull Request(s): [Test](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/12)
-  - Specific implementation details:
-    - Comment coupling and cohesion on shipping views
-</details>
-</details>
-
----
-<details>
   <summary>W2: 04/11/2023~10/12/2023 </summary>
 <br>
 <details>
@@ -115,4 +98,17 @@ This is a Capstone's source code for Software Design and Construction project
     - Comment cohesion on payment subsystem
 
 </details>
+
+<details>
+<summary>Trần Hồng Quý</summary>
+<br>
+
+- Assigned tasks:
+  - Comment coupling and cohesion on shipping views
+- Implementation details:
+  - Pull Request(s): [Test](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/12)
+  - Specific implementation details:
+    - Comment coupling and cohesion on shipping views
+</details>
+
 </details>

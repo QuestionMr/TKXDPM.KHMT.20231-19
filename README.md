@@ -99,7 +99,7 @@ This is a Capstone's source code for Software Design and Construction project
 
 </details>
 
-<detail>
+<details>
 <summary>Trần Hồng Quý</summary>
 <br>
 

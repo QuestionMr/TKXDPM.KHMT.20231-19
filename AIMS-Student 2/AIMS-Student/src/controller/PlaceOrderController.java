@@ -118,6 +118,7 @@ public class PlaceOrderController extends BaseController{
      * @param order
      * @return shippingFee
      */
+//    Sequential Cohesion
     public int calculateShippingFee(Order order){
         Random rand = new Random();
         int fees = (int)( ( (rand.nextFloat()*10)/100 ) * order.getAmount() );

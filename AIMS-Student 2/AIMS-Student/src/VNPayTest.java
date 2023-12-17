@@ -1,6 +1,8 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 
 import javax.crypto.Mac;
@@ -29,23 +31,30 @@ public class VNPayTest {
 		InterbankSubsystemController itb = new InterbankSubsystemController();
 		String connectResponse = itb.connectToVNPay(12000000, "yes");
 		System.out.println(connectResponse);
-		final JFrame frame=new JFrame();
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frame.setSize(620,440);
-		final JFXPanel fxpanel=new JFXPanel();
-		frame.add(fxpanel);
+		try {
+			java.awt.Desktop.getDesktop().browse(new URI(Configs.PROCESS_TRANSACTION_URL + "?" + connectResponse));
+		} catch (IOException | URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		Platform.runLater(new Runnable() {
-		@Override
-		public void run()
-		    {
-		    WebEngine engine;
-		    WebView wv=new WebView();
-		    engine=wv.getEngine();
-		    fxpanel.setScene(new Scene(wv));
-		    engine.load(Configs.PROCESS_TRANSACTION_URL + "?" + connectResponse);
-		    }
-		    });
-		frame.setVisible(true);
+//		final JFrame frame=new JFrame();
+//		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//		frame.setSize(620,440);
+//		final JFXPanel fxpanel=new JFXPanel();
+//		frame.add(fxpanel);
+
+//		Platform.runLater(new Runnable() {
+//		@Override
+//		public void run()
+//		    {
+//		    WebEngine engine;
+//		    WebView wv=new WebView();
+//		    engine=wv.getEngine();
+//		    fxpanel.setScene(new Scene(wv));
+//		    engine.load(Configs.PROCESS_TRANSACTION_URL + "?" + connectResponse);
+//		    }
+//		    });
+//		frame.setVisible(true);
 		}
 }

@@ -134,7 +134,7 @@ public class InterbankSubsystemController {
         String vnp_Command = "pay";
         String vnp_OrderInfo = contents;
         String orderType = "other";
-        String vnp_TxnRef = "1";
+        String vnp_TxnRef = "8";
         String vnp_IpAddr = "127.0.1.1";
         String vnp_TmnCode = "95IAC7Y6";
 
@@ -154,7 +154,7 @@ public class InterbankSubsystemController {
         vnp_Params.put("vnp_OrderType", orderType);
         vnp_Params.put("vnp_Locale", "vn");
      
-        vnp_Params.put("vnp_ReturnUrl", "https%3A%2F%2Fdomainmerchant.vn%2FReturnUrl");
+        vnp_Params.put("vnp_ReturnUrl", "https://sandbox.vnpayment.vn/tryitnow/Home/VnPayReturn");
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
 

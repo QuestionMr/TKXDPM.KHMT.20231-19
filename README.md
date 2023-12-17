@@ -113,7 +113,7 @@ This is a Capstone's source code for Software Design and Construction project
 </details>
 ---
 <details>
-  <summary>W2: 11/12/2023~17/12/2023 </summary>
+  <summary>W3: 11/12/2023~17/12/2023 </summary>
 <br>
 <details>
 <summary>Bùi Ngọc Quang</summary>

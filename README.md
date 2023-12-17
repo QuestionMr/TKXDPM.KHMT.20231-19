@@ -124,7 +124,7 @@ This is a Capstone's source code for Software Design and Construction project
   - Testing webview in VNPayTest to open url directly in the application
 
 - Implementation details:
-  - Pull Request(s): [Request]()
+  - Pull Request(s): [Request](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/18)
   - Specific implementation details:
     - Comment violations of design principles on interbank subsystem module
 

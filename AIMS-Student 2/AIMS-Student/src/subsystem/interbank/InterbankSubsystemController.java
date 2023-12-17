@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+
 import common.exception.InternalServerErrorException;
 import common.exception.InvalidCardException;
 import common.exception.InvalidTransactionAmountException;
@@ -21,6 +24,10 @@ import common.exception.NotEnoughBalanceException;
 import common.exception.NotEnoughTransactionInfoException;
 import common.exception.SuspiciousTransactionException;
 import common.exception.UnrecognizedException;
+
+//Violation of DIP: Below imports are all concrete classes
+//Solution: Create interfaces that these classes implement to communicate with them
+//If concrete classes require instantiation, create a factory class and interface with the purpose of creating these objects
 import entity.payment.CreditCard;
 import entity.payment.PaymentTransaction;
 import utils.Configs;
@@ -120,14 +127,16 @@ public class InterbankSubsystemController {
 	}
 	
 	//Data coupling (int, String)
+	//SRP violation: connectToVNPay should be a separate responsibility
+	//Solution: move function to another class
 	public static String connectToVNPay(int amount, String contents) {
 		String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String vnp_OrderInfo = contents;
         String orderType = "other";
-        String vnp_TxnRef = "5";
-        String vnp_IpAddr = "127.0.0.1";
-        String vnp_TmnCode = "DEMOV210";
+        String vnp_TxnRef = "1";
+        String vnp_IpAddr = "127.0.1.1";
+        String vnp_TmnCode = "95IAC7Y6";
 
 		//Functional cohesion: vnp_Params.put
         Map vnp_Params = new HashMap<>();
@@ -202,11 +211,38 @@ public class InterbankSubsystemController {
         }
 		//Sequential cohesion: queryUrl -> vnp_Securehash -> queryUrl -> responseText -> return
         String queryUrl = query.toString();
-        String vnp_SecureHash = "3e0d61a0c0534b2e36680b3f7277743e8784cc4e1d68fa7d276e79c23be7d6318d338b477910a27992f5057bb1582bd44bd82ae8009ffaf6d141219218625c42";
-        queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
-		//Common coupling (Global variable Configs.PROCESS_TRANSACTION_URL of Configs class)
-		String responseText = interbankBoundary.getReturnLink(Configs.PROCESS_TRANSACTION_URL + "?" + queryUrl);
-		return responseText;
-	}
+        String vnp_HashSecret = "LFNLPDQQWDJSVRUNYMYLNFZEKGXNHLRC";
+        //String vnp_SecureHash = "3e0d61a0c0534b2e36680b3f7277743e8784cc4e1d68fa7d276e79c23be7d6318d338b477910a27992f5057bb1582bd44bd82ae8009ffaf6d141219218625c42";
+        String vnp_SecureHash = hmacSHA512(vnp_HashSecret, hashData.toString());
 
+        queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
+        System.out.println(queryUrl);
+        return queryUrl;
+		
+        //Common coupling (Global variable Configs.PROCESS_TRANSACTION_URL of Configs class)
+//		String responseText = interbankBoundary.getReturnLink(Configs.PROCESS_TRANSACTION_URL + "?" + queryUrl);
+//		return responseText;
+	}
+    public static String hmacSHA512(final String key, final String data) {
+        try {
+
+            if (key == null || data == null) {
+                throw new NullPointerException();
+            }
+            final Mac hmac512 = Mac.getInstance("HmacSHA512");
+            byte[] hmacKeyBytes = key.getBytes();
+            final SecretKeySpec secretKey = new SecretKeySpec(hmacKeyBytes, "HmacSHA512");
+            hmac512.init(secretKey);
+            byte[] dataBytes = data.getBytes(StandardCharsets.UTF_8);
+            byte[] result = hmac512.doFinal(dataBytes);
+            StringBuilder sb = new StringBuilder(2 * result.length);
+            for (byte b : result) {
+                sb.append(String.format("%02x", b & 0xff));
+            }
+            return sb.toString();
+
+        } catch (Exception ex) {
+            return "";
+        }
+    }
 }

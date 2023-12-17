@@ -111,3 +111,22 @@ This is a Capstone's source code for Software Design and Construction project
     - Comment coupling and cohesion on shipping views
 </details>
 </details>
+---
+<details>
+  <summary>W2: 11/12/2023~17/12/2023 </summary>
+<br>
+<details>
+<summary>Bùi Ngọc Quang</summary>
+<br>
+
+- Assigned tasks:
+  - Comment violations of design principles on interbank subsystem module
+  - Testing webview in VNPayTest to open url directly in the application
+
+- Implementation details:
+  - Pull Request(s): [Request](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/18)
+  - Specific implementation details:
+    - Comment violations of design principles on interbank subsystem module
+
+</details>
+</details>

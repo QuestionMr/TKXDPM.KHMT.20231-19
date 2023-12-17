@@ -3,6 +3,10 @@ package subsystem;
 import common.exception.InternalServerErrorException;
 import common.exception.InvalidCardException;
 import common.exception.NotEnoughBalanceException;
+
+//Violation of DIP: Below imports are all concrete classes
+//Solution: Create interfaces that these classes implement to communicate with them
+//If concrete classes require instantiation, create a factory class and interface with the purpose of creating these objects
 import entity.payment.CreditCard;
 import entity.payment.PaymentTransaction;
 import subsystem.interbank.InterbankSubsystemController;

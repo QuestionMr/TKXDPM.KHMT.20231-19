@@ -90,6 +90,8 @@ public class PaymentController extends BaseController {
 			this.card = new CreditCard(cardNumber, cardHolderName, Integer.parseInt(securityCode),
 					getExpirationDate(expirationDate));
 
+			//Violation of DIP: interbank is of type InterbankInterface, but instantiation relies on InterbankSubsystem (concrete class)
+			//Solution: create a factory class and interface with the purpose of creating an InterbankSubsystem object and assign it to interbank 		
 			this.interbank = new InterbankSubsystem();
 			PaymentTransaction transaction = interbank.payOrder(card, amount, contents);
 

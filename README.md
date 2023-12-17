@@ -98,6 +98,21 @@ This is a Capstone's source code for Software Design and Construction project
 
 </details>
 <details>
+<summary>Trịnh Quang Quân</summary>
+<br>
+
+- Assigned tasks:
+  - Comment cohesion on ViewCart
+
+- Implementation details:
+  - Pull Request(s): [First request](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/9)
+  - Pull Request(s): [Second request](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/20)
+  - Specific implementation details:
+    - Comment cohesion relate to ViewCart
+    - Change position Pull request from W1 to W2 
+
+</details>
+<details>
 <summary>Nguyễn Tống Sang</summary>
 <br>
 
@@ -110,7 +125,6 @@ This is a Capstone's source code for Software Design and Construction project
     - Comment cohesion on payment subsystem
 
 </details>
-
 <details>
 <summary>Trần Hồng Quý</summary>
 <br>

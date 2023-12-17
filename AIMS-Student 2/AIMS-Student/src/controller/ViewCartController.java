@@ -10,7 +10,14 @@ import entity.cart.CartMedia;
 /**
  * Manages actions related to the Cart view.
  * Controls the flow of events when users interact with the Cart.
- * @author nguyenlm
+ * 
+ * Violation:
+ * This class tightly couples with the Cart entity by directly invoking its methods,
+ * leading to Control Coupling.
+ * 
+ * Solution:
+ * Introduce the CartService acting as an intermediary layer that encapsulates interactions with the Cart entity.
+ * This abstraction layer reduces the tight coupling between ViewCartController and Cart, improving maintainability.
  */
 public class ViewCartController extends BaseController{
     

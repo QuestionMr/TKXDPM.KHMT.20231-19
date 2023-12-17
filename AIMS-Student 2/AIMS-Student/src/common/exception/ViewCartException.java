@@ -18,6 +18,14 @@ public class ViewCartException extends AimsException {
     }
 
     /**
+     * Violation:
+     * Coupling: Control Coupling - Inherits from AimsException, directly tied to its hierarchy.
+     * The class tightly couples with AimsException through inheritance, leading to Control Coupling.
+     * 
+     * Solution:
+     * Consider whether inheritance from AimsException is necessary. If specific functionalities
+     * unique to ViewCartException aren't required from AimsException, refactor the hierarchy
+     * to reduce the direct dependence
      * Comments on Cohesion:
      * This class exhibits high cohesion since it specifically handles exceptions related to the Cart view.
      * Its methods and attributes are focused on this specific type of exception.

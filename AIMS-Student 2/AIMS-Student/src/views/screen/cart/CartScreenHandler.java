@@ -29,6 +29,13 @@ import views.screen.shipping.ShippingScreenHandler;
 /**
  * Manages the functionality and display related to the Cart screen.
  * Handles interactions and flow within the Cart screen view.
+ * Violation:
+ * Control Coupling: Utilizes direct method calls from controllers, creating tight dependencies.
+ * Low Cohesion: Handles multiple functionalities in a single class.
+ * 
+ * Solution:
+ * Refactor the class to reduce direct dependencies on controllers, potentially introducing an intermediary
+ * layer to handle interactions. Consider splitting functionalities to improve cohesion.
  * Control Coupling: Utilizes direct method calls from controllers, creating tight dependencies.
  * Cohesion: Low cohesion observed due to handling multiple functionalities in a single class.
  */

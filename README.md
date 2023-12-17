@@ -142,4 +142,17 @@ This is a Capstone's source code for Software Design and Construction project
     - Comment violations of design principles on interbank subsystem module
 
 </details>
+<details>
+<summary>Trịnh Quang Quân</summary>
+<br>
+
+- Assigned tasks:
+  - Comment violations and solution on ViewCart
+
+- Implementation details:
+  - Pull Request(s): [Request](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/21)
+  - Specific implementation details:
+    - Comment violations and solution relate to ViewCart
+
+</details>
 </details>

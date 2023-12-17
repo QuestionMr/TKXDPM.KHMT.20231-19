@@ -95,7 +95,7 @@ This is a Capstone's source code for Software Design and Construction project
   - Pull Request(s): [First request](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/9)
   - Pull Request(s): [Second request](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/20)
   - Specific implementation details:
-    - Comment cohesion on ViewCart
+    - Comment cohesion relate to ViewCart
     - Change position Pull request from W1 to W2 
 
 </details>

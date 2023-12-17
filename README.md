@@ -89,13 +89,13 @@ This is a Capstone's source code for Software Design and Construction project
 <br>
 
 - Assigned tasks:
-  - Comment cohesion on interbank subsystem
+  - Comment cohesion on ViewCart
 
 - Implementation details:
   - Pull Request(s): [First request](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/9)
   - Pull Request(s): [Second request](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/20)
   - Specific implementation details:
-    - Comment cohesion on interbank subsystem
+    - Comment cohesion on ViewCart
     - Change position Pull request from W1 to W2 
 
 </details>

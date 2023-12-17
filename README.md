@@ -44,7 +44,6 @@ This is a Capstone's source code for Software Design and Construction project
 - Implementation details:
   - Pull Request(s): [Test](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/2)
   - Pull Request(s): [First request](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/6)
-  - Pull Request(s): [Second request](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/9)
   - Comment control coupling relate to ViewCart
 </details>
 <details>
@@ -81,6 +80,19 @@ This is a Capstone's source code for Software Design and Construction project
 
 - Implementation details:
   - Pull Request(s): [Request](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/10)
+  - Specific implementation details:
+    - Comment cohesion on interbank subsystem
+
+</details>
+<summary>Trịnh Quang Quân</summary>
+<br>
+
+- Assigned tasks:
+  - Comment cohesion on interbank subsystem
+
+- Implementation details:
+  - Pull Request(s): [First request](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/9)
+  - Pull Request(s): [Second request](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/19)
   - Specific implementation details:
     - Comment cohesion on interbank subsystem
 

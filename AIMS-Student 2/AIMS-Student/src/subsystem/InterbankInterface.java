@@ -2,6 +2,10 @@ package subsystem;
 
 import common.exception.PaymentException;
 import common.exception.UnrecognizedException;
+
+//Violation of DIP: Below imports are all concrete classes
+//Solution: Create interfaces that these classes implement to communicate with them
+//If concrete classes require instantiation, create a factory class and interface with the purpose of creating these objects
 import entity.payment.CreditCard;
 import entity.payment.PaymentTransaction;
 

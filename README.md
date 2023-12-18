@@ -155,4 +155,17 @@ This is a Capstone's source code for Software Design and Construction project
     - Comment violations and solution relate to ViewCart
 
 </details>
+<details>
+<summary>Trần Hồng Quý</summary>
+<br>
+
+- Assigned tasks:
+  - Comment violations and solution on Shipping
+
+- Implementation details:
+  - Pull Request(s): [Request](https://github.com/QuestionMr/TKXDPM.KHMT.20231-19/pull/24)
+  - Specific implementation details:
+    - Comment violations and solution relate to Shipping
+    
+</details>
 </details>

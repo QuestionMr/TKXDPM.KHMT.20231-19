@@ -110,4 +110,13 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
 		// TODO: implement later on if we need
 	}
 
+	// SOLUTION: Separation of concerns: Process and validate delivery info in distinct methods
+    // private void processAndValidateDeliveryInfo(HashMap messages) throws InvalidDeliveryInfoException {
+    //     try {
+    //         getBController().processDeliveryInfo(messages);
+    //     } catch (InvalidDeliveryInfoException e) {
+    //         throw new InvalidDeliveryInfoException(e.getMessage());
+    //     }
+    // }
+
 }

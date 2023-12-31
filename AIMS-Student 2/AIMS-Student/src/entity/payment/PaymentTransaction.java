@@ -18,6 +18,15 @@ public class PaymentTransaction {
 		this.amount = amount;
 		this.createdAt = createdAt;
 	}
+	public PaymentTransaction(String errorCode, String transactionId, String transactionContent,
+			int amount, String createdAt) {
+		super();
+		this.errorCode = errorCode;
+		this.transactionId = transactionId;
+		this.transactionContent = transactionContent;
+		this.amount = amount;
+		this.createdAt = createdAt;
+	}
 	
 	public String getErrorCode() {
 		return errorCode;

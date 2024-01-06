@@ -1,5 +1,6 @@
 package entity.media;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -32,25 +33,31 @@ public class Media {
         stm = AIMSDB.getConnection().createStatement();
     }
 
-    public Media (int id, String title, String category, int price, int quantity, String type) throws SQLException{
+    public Media (int id, String title, String category, int value, int quantity, String type) throws SQLException{
         this.id = id;
         this.title = title;
         this.category = category;
-        this.price = price;
+        //this.price = price;
+        this.value = value;
         this.quantity = quantity;
         this.type = type;
 
         //stm = AIMSDB.getConnection().createStatement();
     }
 
-    public int getQuantity() throws SQLException{
-        int updated_quantity = getMediaById(id).quantity;
-        this.quantity = updated_quantity;
-        return updated_quantity;
+    public int getQuantity(){
+        int updated_quantity;
+		try {
+			updated_quantity = getMediaById(id).quantity;
+	        this.quantity = updated_quantity;
+	        System.out.println(id + " " + updated_quantity);
+		} finally  {
+	        return this.quantity;
+		}
     }
 
     public Media getMediaById(int id) throws SQLException{
-        String sql = "SELECT * FROM Media ;";
+        String sql = "SELECT * FROM Media WHERE id = " +  id + ";";
         Statement stm = AIMSDB.getConnection().createStatement();
         ResultSet res = stm.executeQuery(sql);
 		if(res.next()) {
@@ -79,6 +86,7 @@ public class Media {
                 .setCategory(res.getString("category"))
                 .setMediaURL(res.getString("imageUrl"))
                 .setPrice(res.getInt("price"))
+                .setValue(res.getInt("value"))
                 .setType(res.getString("type"));
             medium.add(media);
         }
@@ -94,7 +102,47 @@ public class Media {
                           + field + "=" + value + " " 
                           + "where id=" + id + ";");
     }
+    public void updateMediaById() throws SQLException {
+    	updateMediaFieldById("Media", this.id, "type", this.type);
+    	updateMediaFieldById("Media", this.id, "category", this.category);
+    	updateMediaFieldById("Media", this.id, "price", this.price);
+    	updateMediaFieldById("Media", this.id, "quantity", this.quantity);
+    	updateMediaFieldById("Media", this.id, "title", this.title);
+    	updateMediaFieldById("Media", this.id, "value", this.value);
+    	updateMediaFieldById("Media", this.id, "imageUrl", this.imageURL);
+    }
+    public void addMediaToDB() {
+    	 String command = "INSERT INTO Media(id,type,category,price,quantity,title,value,imageUrl) VALUES(?,?,?,?,?,?,?,?)";
+         try(PreparedStatement addstmt = AIMSDB.getConnection().prepareStatement(command)) {
+             addstmt.setObject(1,id);
+             addstmt.setObject(2,type);
+             addstmt.setObject(3,category);
+             addstmt.setObject(4,price);
+             addstmt.setObject(5,quantity);
+             addstmt.setObject(6,title);
+             addstmt.setObject(7,value);
+             addstmt.setObject(8,imageURL);
 
+             addstmt.execute();
+             System.out.println("Media added");
+         } catch(Exception err) {
+             System.out.println("An error has occurred.");
+             System.out.println("See full details below.");
+             err.printStackTrace();
+         }
+    }
+    public void deleteMedia() {
+    	String command = "DELETE FROM Media WHERE id = ?";
+        try(PreparedStatement addstmt = AIMSDB.getConnection().prepareStatement(command)) {
+            addstmt.setObject(1,id);
+            addstmt.execute();
+            System.out.println("Media deleted");
+        } catch(Exception err) {
+            System.out.println("An error has occurred.");
+            System.out.println("See full details below.");
+            err.printStackTrace();
+        }
+    }
     // getter and setter 
     public int getId() {
         return this.id;
@@ -104,7 +152,11 @@ public class Media {
         this.id = id;
         return this;
     }
-
+    public Media setValue (int value) {
+    	System.out.println("value is " + value);
+    	this.value = value;
+    	return this;
+    }
     public String getTitle() {
         return this.title;
     }
@@ -125,6 +177,10 @@ public class Media {
 
     public int getPrice() {
         return this.price;
+    }
+    public int getValue() {
+    	System.out.println(this.value);
+        return this.value;
     }
 
     public Media setPrice(int price) {

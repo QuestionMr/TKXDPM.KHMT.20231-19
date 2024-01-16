@@ -23,8 +23,11 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import utils.Configs;
+import utils.Utils;
 import javafx.stage.Stage;
 import views.screen.BaseScreenHandler;
+import views.screen.popup.PopupScreen;
+
 import java.util.Date;
 
 
@@ -75,19 +78,41 @@ public class AddBook extends AddBaseMediaHandler implements Initializable {
 		fieldLanguage.setValue(b.getLanguage());
 		fieldCategory.setValue(b.getBookCategory());
 	}
-	void submitData() throws SQLException {
-		String author = fieldAuthor.getText();
-		int pages = Integer.parseInt(fieldPages.getText());
-		String publisher = fieldPublisher.getText();
-		String cover = fieldCover.getValue();
-		String language = fieldLanguage.getValue();
-		String category = fieldCategory.getValue();
-		Date pdate = Date.from(fieldDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+	void submitData() throws Exception{
+		String author="";
+		String publisher="";
+		String cover = "";
+		Date pdate = new Date();
+		
+		String language = "";
+		String category = "";
+		int pages = 0;
+		try {
+			language = fieldLanguage.getValue();
+			category = fieldCategory.getValue();
+			pages = Integer.parseInt(fieldPages.getText());
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
 
-		Book b = new Book(tempMedia, author, cover, publisher, pdate, pages, language, category);
-		System.out.println(isEdit);
-		if (!isEdit) b.addMediaToDB();
-		else b.updateMediaById();
+		author = fieldAuthor.getText();
+		publisher = fieldPublisher.getText();
+		cover = fieldCover.getValue();
+		if (Utils.checkEmpty(author) || Utils.checkEmpty(publisher) || Utils.checkEmpty(cover)) throw new Exception();
+		System.out.println(fieldAuthor.getText());
+		pdate = Date.from(fieldDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		
+		Book b;
+		try {
+			b = new Book(tempMedia, author, cover, publisher, pdate, pages, language, category);
+			System.out.println(isEdit);
+			if (!isEdit) b.addMediaToDB();
+			else b.updateMediaById();
+		} catch (SQLException e) {
+            PopupScreen.error(Configs.wrong_info);
+			e.printStackTrace();
+		}
+		
 	}
 
 }

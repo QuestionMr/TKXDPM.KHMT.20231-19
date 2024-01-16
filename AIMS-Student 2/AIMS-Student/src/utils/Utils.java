@@ -69,5 +69,8 @@ public class Utils {
 		}
 		return digest;
 	}
+	public static boolean checkEmpty(String s) {
+		return (s.equals(""));
+	}
 
 }

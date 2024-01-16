@@ -9,6 +9,11 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import entity.db.AIMSDB;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+import utils.Configs;
 import utils.Utils;
 
 /**
@@ -28,6 +33,8 @@ public class Media {
     protected int quantity;
     protected String type;
     protected String imageURL;
+    protected String LABELS[];
+    protected String LABELINFOS[];
 
     public Media() throws SQLException{
         stm = AIMSDB.getConnection().createStatement();
@@ -73,7 +80,17 @@ public class Media {
         }
         return null;
     }
+    protected void copyMedia(Media m) {
+    	this.id = m.getId();
+    	this.title = m.getTitle();
+    	this.category = m.getCategory();
+    	this.price = m.getPrice();
+    	this.value = m.getValue();
 
+    	this.quantity = m.getQuantity();
+    	this.type = m.getType();
+    	this.imageURL = m.getImageURL();
+    }
     public List getAllMedia() throws SQLException{
         Statement stm = AIMSDB.getConnection().createStatement();
         ResultSet res = stm.executeQuery("select * from Media");
@@ -210,7 +227,18 @@ public class Media {
         this.type = type;
         return this;
     }
-
+    public void setGridInfo(GridPane gridInfo) {
+    	setLabelInfo();
+    	for (int i = 0; i < LABELS.length; i++) {
+			Pane temp = (Pane) gridInfo.getChildren().get(i);
+			Label n = (Label) temp.getChildren().get(0);
+			n.setText(LABELS[i]);
+			
+			Text n2 = (Text) gridInfo.getChildren().get(i + 7);
+			n2.setText(LABELINFOS[i]);
+		}
+	}
+    public void setLabelInfo() {}
     @Override
     public String toString() {
         return "{" +

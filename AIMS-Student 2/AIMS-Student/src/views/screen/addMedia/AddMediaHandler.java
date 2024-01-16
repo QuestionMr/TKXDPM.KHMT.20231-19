@@ -24,6 +24,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import utils.Configs;
 import javafx.stage.Stage;
 import views.screen.BaseScreenHandler;
+import views.screen.popup.PopupScreen;
 
 public class AddMediaHandler  extends BaseScreenHandler implements Initializable {
 	@FXML
@@ -52,8 +53,9 @@ public class AddMediaHandler  extends BaseScreenHandler implements Initializable
 
 	@FXML
 	private ComboBox<String> fieldType;
+	private TextField[] textFields;
 	private String textDirectory;
-	
+	private AddBaseMediaHandler addBaseMedia;
 	private boolean isEdit;
 
 	public AddMediaHandler(Stage stage, String screenPath) throws IOException {
@@ -86,35 +88,53 @@ public class AddMediaHandler  extends BaseScreenHandler implements Initializable
 	}
 	@FXML
 	void continueToNextScreen(MouseEvent event) throws SQLException {
-		submitData();
+		try {
+			submitData();
+		} catch (SQLException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//returnToPrevScreen();
 	}
 	
-	void submitData() throws SQLException {
-		int id = Integer.parseInt(fieldID.getText());
-		int v = Integer.parseInt(fieldValue.getText());
-		System.out.println("entered " + v);
-		int cp = Integer.parseInt(fieldCurrentPrice.getText());
-		int qt = Integer.parseInt(fieldQuantity.getText());
-
+	void submitData() throws SQLException, IOException {
+		int id = 0;
+		int v = 0;
+		int cp = 0;
+		int qt = 0;
+		boolean r = false;
+		try {
+			id = Integer.parseInt(fieldID.getText());
+			v = Integer.parseInt(fieldValue.getText());
+			cp = Integer.parseInt(fieldCurrentPrice.getText());
+			qt = Integer.parseInt(fieldQuantity.getText());
+		} 
+		catch (Exception e) {
+			PopupScreen.error(Configs.wrong_info);
+			e.printStackTrace();
+			r = true;
+		}    
+		if (r) return;
 		Media m = new Media(id, fieldTitle.getText(), "", v, qt, fieldType.getValue());
 		m.setMediaURL(textDirectory);
 		m.setPrice(cp);
 		m.setValue(v);
-		if (fieldType.getValue().equals("Book"))
-			try {
-				bookCreate(m);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		if (fieldType.getValue().equals("Book")) 
+			addBaseMedia = new AddBook(this.stage, Configs.BOOK_PATH);
+		else if (fieldType.getValue().equals("CD"))	
+			addBaseMedia = new AddCD(this.stage, Configs.CD_PATH);
+		else if (fieldType.getValue().equals("DVD"))	
+			addBaseMedia = new AddDVD(this.stage, Configs.DVD_PATH);
+		
+		nextScreen(m);
 		//m.addMediaToDB();
 	}
 	public void fillEditField(Media m) {
 		isEdit = true;
 		fieldID.setText(String.valueOf(m.getId()));
 		fieldID.setEditable(false);
-		fieldType.setValue("Book");
+		fieldType.getEditor().setText(m.getCategory());
+		fieldType.setValue(m.getCategory());
 		fieldType.setEditable(false);
 		fieldTitle.setText(m.getTitle());
 		fieldValue.setText(String.valueOf(m.getValue()));
@@ -126,14 +146,13 @@ public class AddMediaHandler  extends BaseScreenHandler implements Initializable
         imageS.setImage(image);
         textDirectory = m.getImageURL();
 	}
-	private void bookCreate(Media m) throws IOException, SQLException {
-		AddBook addBook = new AddBook(this.stage, Configs.BOOK_PATH);
-		addBook.setHomeScreenHandler(this.homeScreenHandler);
-		addBook.setBController(new ViewCartController());
-		addBook.setPreviousScreen(this);
-		addBook.setTempMedia(m);
-		if (isEdit) addBook.fillEditField(m);
-		addBook.show();
+	private void nextScreen(Media m) throws IOException, SQLException {
+		addBaseMedia.setHomeScreenHandler(this.homeScreenHandler);
+		addBaseMedia.setBController(new ViewCartController());
+		addBaseMedia.setPreviousScreen(this);
+		addBaseMedia.setTempMedia(m);
+		if (isEdit) addBaseMedia.fillEditField(m);
+		addBaseMedia.show();
 	}
 
 }

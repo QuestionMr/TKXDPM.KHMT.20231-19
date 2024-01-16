@@ -4,10 +4,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import entity.db.AIMSDB;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+import utils.Configs;
 
 public class Book extends Media {
 
@@ -25,16 +31,17 @@ public class Book extends Media {
     public Book(Media m, String author,
             String coverType, String publisher, Date publishDate, int numOfPages, String language,
             String bookCategory) throws SQLException {
-    	this.id = m.getId();
-    	this.title = m.getTitle();
-    	this.category = m.getCategory();
-    	this.price = m.getPrice();
-    	this.value = m.getValue();
+//    	this.id = m.getId();
+//    	this.title = m.getTitle();
+//    	this.category = m.getCategory();
+//    	this.price = m.getPrice();
+//    	this.value = m.getValue();
+//
+//    	this.quantity = m.getQuantity();
+//    	this.type = m.getType();
+//    	this.imageURL = m.getImageURL();
+    	copyMedia(m);
 
-    	this.quantity = m.getQuantity();
-    	this.type = m.getType();
-    	this.imageURL = m.getImageURL();
-    	
     	this.author = author;
         this.coverType = coverType;
         this.publisher = publisher;
@@ -155,7 +162,6 @@ public class Book extends Media {
             
             return new Book(id, title, category, price, quantity, type, 
                             author, coverType, publisher, publishDate, numOfPages, language, bookCategory);
-            
 		} else {
 			throw new SQLException();
 		}
@@ -192,7 +198,14 @@ public class Book extends Media {
             System.out.println("See full details below.");
             err.printStackTrace();
         }
-   }
+   } 
+    public void setLabelInfo() {
+    	this.LABELS = Configs.BOOKLABEL.clone();
+    	String[] temp = {this.author, this.coverType, this.publisher, new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(this.publishDate), 
+    	                  String.valueOf(this.numOfPages), this.language, this.bookCategory};
+    	this.LABELINFOS = temp.clone();
+    }
+
     @Override
     public List getAllMedia() {
         return null;

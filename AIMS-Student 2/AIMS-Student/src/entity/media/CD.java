@@ -1,9 +1,14 @@
 package entity.media;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import entity.db.AIMSDB;
+import utils.Configs;
 
 public class CD extends Media {
 
@@ -15,7 +20,15 @@ public class CD extends Media {
     public CD() throws SQLException{
 
     }
-
+    public CD(Media m, String artist,
+            String recordLabel, String musicType, Date releasedDate) throws SQLException{
+    	
+    	copyMedia(m);
+        this.artist = artist;
+        this.recordLabel = recordLabel;
+        this.musicType = musicType;
+        this.releasedDate = releasedDate;
+    }
     public CD(int id, String title, String category, int price, int quantity, String type, String artist,
             String recordLabel, String musicType, Date releasedDate) throws SQLException{
         super(id, title, category, price, quantity, type);
@@ -71,8 +84,8 @@ public class CD extends Media {
     @Override
     public Media getMediaById(int id) throws SQLException {
         String sql = "SELECT * FROM "+
-                     "aims.CD " +
-                     "INNER JOIN aims.Media " +
+                     "CD " +
+                     "INNER JOIN Media " +
                      "ON Media.id = CD.id " +
                      "where Media.id = " + id + ";";
         ResultSet res = stm.executeQuery(sql);
@@ -98,7 +111,36 @@ public class CD extends Media {
 			throw new SQLException();
 		}
     }
-
+    public void updateMediaById() throws SQLException {
+    	super.updateMediaById();
+    	updateMediaFieldById("CD", this.id, "artist", this.artist);
+    	updateMediaFieldById("CD", this.id, "recordLabel", this.recordLabel);
+    	updateMediaFieldById("CD", this.id, "musicType", this.musicType);
+    	updateMediaFieldById("CD", this.id, "releasedDate", new java.sql.Date(this.releasedDate.getTime()));
+    }
+    @Override
+    public void addMediaToDB() {
+    	super.addMediaToDB();
+   	 	String command = "INSERT INTO CD(id,artist,recordLabel,musicType,releasedDate) VALUES(?,?,?,?,?)";
+        try(PreparedStatement addstmt = AIMSDB.getConnection().prepareStatement(command)) {
+            addstmt.setObject(1,id);
+            addstmt.setObject(2,artist);
+            addstmt.setObject(3,recordLabel);
+            addstmt.setObject(4,musicType);
+            addstmt.setObject(5,releasedDate);
+            addstmt.execute();
+            System.out.println("CD added");
+        } catch(Exception err) {
+            System.out.println("An error has occurred.");
+            System.out.println("See full details below.");
+            err.printStackTrace();
+        }
+   }
+    public void setLabelInfo() {
+    	this.LABELS = Configs.CDLABEL.clone();
+    	String[] temp = {this.artist, this.recordLabel, this.musicType, new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(this.releasedDate)}; 
+    	this.LABELINFOS = temp.clone();
+    }
     @Override
     public List getAllMedia() {
         return null;

@@ -7,7 +7,9 @@ import entity.media.Media;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import utils.Configs;
 import views.screen.BaseScreenHandler;
+import views.screen.popup.PopupScreen;
 
 public class AddBaseMediaHandler extends BaseScreenHandler{
 
@@ -24,11 +26,17 @@ public class AddBaseMediaHandler extends BaseScreenHandler{
 	public void fillEditField(Media m) throws SQLException {
 		isEdit = true;
 	}
-	void submitData() throws SQLException{}
+	void submitData() throws Exception{}
 	
 	@FXML
-	void submit(MouseEvent event) throws SQLException {
-		submitData();
-		returnToHomeScreen();
+	void submit(MouseEvent event) throws IOException  {
+			try {
+				submitData();
+				returnToHomeScreen();
+			} catch (Exception e) {
+	            PopupScreen.error(Configs.wrong_info);
+				e.printStackTrace();
+			}
+		
 	}
 }

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="screenTitle" layoutX="70.0" layoutY="1.0" prefHeight="70.0" prefWidth="220.0" text="Add CD" textAlignment="CENTER" textFill="#5091e6">
+         <font>
+            <Font name="Segoe UI Bold" size="42.0" />
+         </font>
+      </Label>
+      <GridPane layoutX="262.0" layoutY="124.0" prefHeight="483.0" prefWidth="970.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="468.4000244140625" minWidth="10.0" prefWidth="229.99994506835938" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="936.6" minWidth="10.0" prefWidth="713.2000549316406" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="142.8000244140625" minHeight="0.0" prefHeight="98.8" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="345.80002441406253" minHeight="10.0" prefHeight="129.59998779296876" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="345.80002441406253" minHeight="10.0" prefHeight="118.40001220703124" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="345.80002441406253" minHeight="10.0" prefHeight="136.800048828125" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="79.0" layoutY="34.0" prefHeight="29.0" prefWidth="81.0" text="Artist">
+                     <font>
+                        <Font name="Segoe UI" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="59.0" layoutY="21.0" prefHeight="32.0" prefWidth="33.0" text="*" textAlignment="CENTER" textFill="RED">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+               <children>
+                  <Label layoutX="68.0" layoutY="52.0" prefHeight="29.0" prefWidth="150.0" text="Record Label">
+                     <font>
+                        <Font name="Segoe UI" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="50.0" layoutY="39.0" prefHeight="53.0" prefWidth="33.0" text="*" textAlignment="CENTER" textFill="RED">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+               <children>
+                  <Label layoutX="48.0" layoutY="49.0" prefHeight="40.0" prefWidth="149.0" text="Release Date">
+                     <font>
+                        <Font name="Segoe UI" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <TextField fx:id="fieldArtist" prefHeight="58.0" prefWidth="753.0" promptText="(a-zA-Z)(1-9)" GridPane.columnIndex="1">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="fieldRecord" prefHeight="58.0" prefWidth="753.0" promptText="(a-zA-Z)(1-9)" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+               <children>
+                  <Label layoutX="76.0" layoutY="45.0" prefHeight="29.0" prefWidth="176.0" text="Genre">
+                     <font>
+                        <Font name="Segoe UI" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="56.0" layoutY="31.0" prefHeight="53.0" prefWidth="33.0" text="*" textAlignment="CENTER" textFill="RED">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <DatePicker fx:id="fieldDate" prefHeight="42.0" prefWidth="303.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ComboBox fx:id="fieldGenre" prefHeight="53.0" prefWidth="214.0" visibleRowCount="3" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+      <Button layoutX="620.0" layoutY="653.0" mnemonicParsing="false" onMouseClicked="#submit" prefHeight="62.0" prefWidth="302.0" text="Add">
+         <font>
+            <Font name="Segoe UI" size="36.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnBack" alignment="CENTER" contentDisplay="CENTER" layoutX="1151.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#returnToPrevScreen" prefHeight="46.0" prefWidth="150.0" style="-fx-background-color: #FF7F7F; -fx-cursor: hand;" text="Back" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI Bold" size="24.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

@@ -9,6 +9,8 @@ import java.util.ResourceBundle;
 
 import controller.ViewCartController;
 import entity.media.Book;
+import entity.media.CD;
+import entity.media.DVD;
 import entity.media.Media;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -66,7 +68,7 @@ public class ViewMedia extends BaseScreenHandler implements Initializable{
 		// TODO Auto-generated method stub
 	}
 	
-	public void setMediaInfo(Media m) {
+	public void setMediaInfo(Media m){
 		File file = new File(m.getImageURL());
         Image image = new Image(file.toURI().toString());
 		currMedia = m;
@@ -79,7 +81,30 @@ public class ViewMedia extends BaseScreenHandler implements Initializable{
         imageS.setImage(image);
 
 		System.out.println(m.getType());
-		if (m.getType().equals("Book")) setBookInfo(m);
+		Media temp = m;
+		if (m.getType().equals("Book"))
+			try {
+				temp = new Book().getMediaById(m.getId());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		else if (m.getType().equals("CD"))
+			try {
+				temp = new CD().getMediaById(m.getId());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		else if (m.getType().equals("DVD"))
+			try {
+				temp = new DVD().getMediaById(m.getId());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		temp.setGridInfo(gridInfo);
 	}
 	@FXML
 	void editMedia(MouseEvent event) throws SQLException, IOException {
@@ -91,45 +116,6 @@ public class ViewMedia extends BaseScreenHandler implements Initializable{
          addMedia.fillEditField(currMedia);
          addMedia.show();
 		//returnToPrevScreen();
-	}
-	
-	private void setBookInfo(Media m) {
-		try {
-			Book b = new Book();
-			b = (Book) b.getMediaById(m.getId());
-		
-		for (int i = 0; i < Configs.BOOKLABEL.length; i++) {
-			Pane temp = (Pane) gridInfo.getChildren().get(i);
-			Label n = (Label) temp.getChildren().get(0);
-			n.setText(Configs.BOOKLABEL[i]);
-			
-			Text n2 = (Text) gridInfo.getChildren().get(i + 7);
-			n2.setText(getBookInfo(i,b));
-		}} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	private String getBookInfo(int i, Book b) {
-		switch(i) {
-			case 0:
-				return b.getAuthor();
-			case 1:
-				return b.getCoverType();
-			case 2:
-				return b.getPublisher();
-			case 3:
-				return new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(b.getPublishDate());
-			case 4:
-				return String.valueOf(b.getNumOfPages());
-			case 5:
-				return b.getLanguage();
-			case 6:
-				return b.getBookCategory();
-			default:
-				return "";
-		}
-			
 	}
 
 }

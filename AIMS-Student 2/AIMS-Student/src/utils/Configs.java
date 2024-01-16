@@ -19,6 +19,7 @@ import javax.crypto.spec.SecretKeySpec;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import views.screen.popup.PopupScreen;
 /**
  * @author nguyenlm Contains the configs for AIMS Project
  */
@@ -69,6 +70,9 @@ public class Configs {
 	public static final String ADMIN_HOME_PATH  = "/views/fxml/adminHome.fxml";
 	
 	public static final String BOOK_PATH  = "/views/fxml/addBook.fxml";
+	public static final String CD_PATH  = "/views/fxml/addCD.fxml";
+	public static final String DVD_PATH  = "/views/fxml/addDVD.fxml";
+
 	public static final String VIEW_PATH  = "/views/fxml/viewMedia.fxml";
 
 	public static Font REGULAR_FONT = Font.font("Segoe UI", FontWeight.NORMAL, FontPosture.REGULAR, 24);
@@ -76,9 +80,12 @@ public class Configs {
 	public static String[] COVERS = {"Soft", "Hard"};
 	public static String[] CATEGORY = {"Novel", "Comic", "Educational"};
 	public static String[] LANGUAGE = {"Vietnamese", "English"};
+	public static String[] CD_TYPE = {"KPOP", "VPOP"};
+	public static String[] DVD_TYPE = {"SHOW", "MOVIE"};
+	public static String[] DISC_TYPE = {"BLURAY", "HD-DVD"};
 
 	public static String[] BOOKLABEL = {"Author", "Cover type", "Publisher", "Publish date", "Number of pages","Language", "Category"};
-	public static String[] CDLABEL = {"Artist", "Record label", "Music yype", "Release date"};
+	public static String[] CDLABEL = {"Artist", "Record label", "Music type", "Release date"};
 	public static String[] DVDLABEL = {"Director", "Disc type", "Runtime", "Studio", "Release date", "Subtitiles", "Film type"};
 
 	
@@ -96,6 +103,7 @@ public class Configs {
     public static String vnp_TmnCode = "";
     public static String secretKey = "";
     public static String vnp_ApiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
+    public static String wrong_info = "You entered the wrong info!";
 
     public static String md5(String message) {
         String digest = null;

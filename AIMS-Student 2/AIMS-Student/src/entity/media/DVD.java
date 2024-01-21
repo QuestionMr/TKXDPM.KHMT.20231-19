@@ -1,9 +1,14 @@
 package entity.media;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import entity.db.AIMSDB;
+import utils.Configs;
 
 public class DVD extends Media {
 
@@ -18,7 +23,17 @@ public class DVD extends Media {
     public DVD() throws SQLException{
 
     }
-
+    public DVD(Media m, String discType,
+            String director, int runtime, String studio, String subtitles, Date releasedDate, String filmType) throws SQLException{
+        this.copyMedia(m);
+        this.discType = discType;
+        this.director = director;
+        this.runtime = runtime;
+        this.studio = studio;
+        this.subtitles = subtitles;
+        this.releasedDate = releasedDate;
+        this.filmType = filmType;
+    }
     public DVD(int id, String title, String category, int price, int quantity, String type, String discType,
             String director, int runtime, String studio, String subtitles, Date releasedDate, String filmType) throws SQLException{
         super(id, title, category, price, quantity, type);
@@ -30,7 +45,45 @@ public class DVD extends Media {
         this.releasedDate = releasedDate;
         this.filmType = filmType;
     }
+    @Override
+    public void addMediaToDB() {
+    	super.addMediaToDB();
+   	 	String command = "INSERT INTO DVD(id,director,runtime,discType,studio,subtitle,releasedDate,filmType) VALUES(?,?,?,?,?,?,?,?)";
+        try(PreparedStatement addstmt = AIMSDB.getConnection().prepareStatement(command)) {
+            addstmt.setObject(1,id);
+            addstmt.setObject(2,director);
+            addstmt.setObject(3,runtime);
+            addstmt.setObject(4,discType);
+            addstmt.setObject(5,studio);
+            addstmt.setObject(6,subtitles);
+            addstmt.setObject(7,releasedDate);
+            addstmt.setObject(8,filmType);
 
+
+            addstmt.execute();
+            System.out.println("DVD added");
+        } catch(Exception err) {
+            System.out.println("An error has occurred.");
+            System.out.println("See full details below.");
+            err.printStackTrace();
+        }
+   }
+    public void updateMediaById() throws SQLException {
+    	super.updateMediaById();
+    	updateMediaFieldById("DVD", this.id, "director", this.director);
+    	updateMediaFieldById("DVD", this.id, "runtime", this.runtime);
+    	updateMediaFieldById("DVD", this.id, "discType", this.discType);
+    	updateMediaFieldById("DVD", this.id, "studio", this.studio);
+    	updateMediaFieldById("DVD", this.id, "subtitle", this.subtitles);
+    	updateMediaFieldById("DVD", this.id, "filmType", this.filmType);
+    	updateMediaFieldById("DVD", this.id, "releasedDate", new java.sql.Date(this.releasedDate.getTime()));
+    }
+    public void setLabelInfo() {
+    	this.LABELS = Configs.DVDLABEL.clone();
+    	String[] temp = {this.director, String.valueOf(this.runtime), this.discType, this.studio, new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(this.releasedDate),
+    			this.subtitles, this.filmType}; 
+    	this.LABELINFOS = temp.clone();
+    }
     public String getDiscType() {
         return this.discType;
     }
@@ -100,12 +153,12 @@ public class DVD extends Media {
                 + runtime + "'" + ", studio='" + studio + "'" + ", subtitles='" + subtitles + "'" + ", releasedDate='"
                 + releasedDate + "'" + ", filmType='" + filmType + "'" + "}";
     }
-
+    
     @Override
     public Media getMediaById(int id) throws SQLException {
         String sql = "SELECT * FROM "+
-                     "aims.DVD " +
-                     "INNER JOIN aims.Media " +
+                     "DVD " +
+                     "INNER JOIN Media " +
                      "ON Media.id = DVD.id " +
                      "where Media.id = " + id + ";";
         ResultSet res = stm.executeQuery(sql);

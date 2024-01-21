@@ -1,12 +1,19 @@
 package entity.media;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import entity.db.AIMSDB;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+import utils.Configs;
 
 public class Book extends Media {
 
@@ -21,7 +28,28 @@ public class Book extends Media {
     public Book() throws SQLException{
 
     }
+    public Book(Media m, String author,
+            String coverType, String publisher, Date publishDate, int numOfPages, String language,
+            String bookCategory) throws SQLException {
+//    	this.id = m.getId();
+//    	this.title = m.getTitle();
+//    	this.category = m.getCategory();
+//    	this.price = m.getPrice();
+//    	this.value = m.getValue();
+//
+//    	this.quantity = m.getQuantity();
+//    	this.type = m.getType();
+//    	this.imageURL = m.getImageURL();
+    	copyMedia(m);
 
+    	this.author = author;
+        this.coverType = coverType;
+        this.publisher = publisher;
+        this.publishDate = publishDate;
+        this.numOfPages = numOfPages;
+        this.language = language;
+        this.bookCategory = bookCategory;
+    }
     public Book(int id, String title, String category, int price, int quantity, String type, String author,
             String coverType, String publisher, Date publishDate, int numOfPages, String language,
             String bookCategory) throws SQLException{
@@ -34,7 +62,8 @@ public class Book extends Media {
         this.language = language;
         this.bookCategory = bookCategory;
     }
-
+    
+   
     // getter and setter
     public int getId() {
         return this.id;
@@ -106,10 +135,11 @@ public class Book extends Media {
     @Override
     public Media getMediaById(int id) throws SQLException {
         String sql = "SELECT * FROM "+
-                     "aims.Book " +
-                     "INNER JOIN aims.Media " +
+                     "Book " +
+                     "INNER JOIN Media " +
                      "ON Media.id = Book.id " +
                      "where Media.id = " + id + ";";
+        System.out.println(sql);
         Statement stm = AIMSDB.getConnection().createStatement();
         ResultSet res = stm.executeQuery(sql);
 		if(res.next()) {
@@ -132,10 +162,48 @@ public class Book extends Media {
             
             return new Book(id, title, category, price, quantity, type, 
                             author, coverType, publisher, publishDate, numOfPages, language, bookCategory);
-            
 		} else {
 			throw new SQLException();
 		}
+    }
+   
+    public void updateMediaById() throws SQLException {
+    	super.updateMediaById();
+    	updateMediaFieldById("Book", this.id, "author", this.author);
+    	updateMediaFieldById("Book", this.id, "coverType", this.coverType);
+    	updateMediaFieldById("Book", this.id, "publisher", this.publisher);
+    	updateMediaFieldById("Book", this.id, "publishDate", new java.sql.Date(this.publishDate.getTime()));
+    	updateMediaFieldById("Book", this.id, "numOfPages", this.numOfPages);
+    	updateMediaFieldById("Book", this.id, "language", this.language);
+    	updateMediaFieldById("Book", this.id, "bookCategory", this.bookCategory);
+    }
+    @Override
+    public void addMediaToDB() {
+    	super.addMediaToDB();
+   	 	String command = "INSERT INTO BOOK(id,author,coverType,publisher,publishDate,numOfPages,language,bookCategory) VALUES(?,?,?,?,?,?,?,?)";
+        try(PreparedStatement addstmt = AIMSDB.getConnection().prepareStatement(command)) {
+            addstmt.setObject(1,id);
+            addstmt.setObject(2,author);
+            addstmt.setObject(3,coverType);
+            addstmt.setObject(4,publisher);
+            addstmt.setObject(5,publishDate);
+            addstmt.setObject(6,numOfPages);
+            addstmt.setObject(7,language);
+            addstmt.setObject(8,bookCategory);
+
+            addstmt.execute();
+            System.out.println("Book added");
+        } catch(Exception err) {
+            System.out.println("An error has occurred.");
+            System.out.println("See full details below.");
+            err.printStackTrace();
+        }
+   } 
+    public void setLabelInfo() {
+    	this.LABELS = Configs.BOOKLABEL.clone();
+    	String[] temp = {this.author, this.coverType, this.publisher, new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(this.publishDate), 
+    	                  String.valueOf(this.numOfPages), this.language, this.bookCategory};
+    	this.LABELINFOS = temp.clone();
     }
 
     @Override

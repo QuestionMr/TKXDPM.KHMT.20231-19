@@ -11,8 +11,9 @@ import common.exception.UnrecognizedException;
 import entity.cart.Cart;
 import entity.payment.CreditCard;
 import entity.payment.PaymentTransaction;
-import subsystem.InterbankInterface;
-import subsystem.InterbankSubsystem;
+import subsystem.VnPaySubsystem;
+import subsystem.VNPayInterface;
+import utils.MyMap;
 
 
 /**
@@ -28,11 +29,9 @@ public class PaymentController extends BaseController {
 	 * Represent the card used for payment
 	 */
 	private CreditCard card;
+	
+	private VNPayInterface vnPay;
 
-	/**
-	 * Represent the Interbank subsystem
-	 */
-	private InterbankInterface interbank;
 
 	/**
 	 * Validate the input date which should be in the format "mm/yy", and then
@@ -70,28 +69,14 @@ public class PaymentController extends BaseController {
 		return expirationDate;
 	}
 
-	/**
-	 * Pay order, and then return the result with a message.
-	 * 
-	 * @param amount         - the amount to pay
-	 * @param contents       - the transaction contents
-	 * @param cardNumber     - the card number
-	 * @param cardHolderName - the card holder name
-	 * @param expirationDate - the expiration date in the format "mm/yy"
-	 * @param securityCode   - the cvv/cvc code of the credit card
-	 * @return {@link java.util.Map Map} represent the payment result with a
-	 *         message.
-	 */
-	public Map<String, String> payOrder(int amount, String contents, String cardNumber, String cardHolderName,
-			String expirationDate, String securityCode) {
+
+	public Map<String, String> generateResult(Map<String,String> response) {
 		Map<String, String> result = new Hashtable<String, String>();
 		result.put("RESULT", "PAYMENT FAILED!");
 		try {
-			this.card = new CreditCard(cardNumber, cardHolderName, Integer.parseInt(securityCode),
-					getExpirationDate(expirationDate));
-
-			this.interbank = new InterbankSubsystem();
-			PaymentTransaction transaction = interbank.payOrder(card, amount, contents);
+			
+			this.vnPay = new VnPaySubsystem();
+			PaymentTransaction transaction = vnPay.makePaymentTransaction(response);
 
 			result.put("RESULT", "PAYMENT SUCCESSFUL!");
 			result.put("MESSAGE", "You have succesffully paid the order!");
@@ -100,7 +85,19 @@ public class PaymentController extends BaseController {
 		}
 		return result;
 	}
-
+	/**
+	 * Pay order, and then return the result with a message.
+	 * 
+	 * @param amount         - the amount to pay
+	 * @param contents       - the transaction contents
+	 * @return {String} represent the payment result with a
+	 *         message.
+	 */
+	
+	public String generateOrderPayment(int amount, String content) {
+		this.vnPay = new VnPaySubsystem();
+		return vnPay.generateVNPayConnectionURL(amount, content);
+	}
 	public void emptyCart(){
         Cart.getCart().emptyCart();
     }

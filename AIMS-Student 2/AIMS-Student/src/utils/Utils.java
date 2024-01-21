@@ -54,6 +54,7 @@ public class Utils {
 	public static String md5(String message) {
 		String digest = null;
 		try {
+			//Sequential cohesion: md -> hash -> sb -> digest
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			byte[] hash = md.digest(message.getBytes("UTF-8"));
 			// converting byte array to Hexadecimal String
@@ -67,6 +68,9 @@ public class Utils {
 			digest = "";
 		}
 		return digest;
+	}
+	public static boolean checkEmpty(String s) {
+		return (s.equals(""));
 	}
 
 }

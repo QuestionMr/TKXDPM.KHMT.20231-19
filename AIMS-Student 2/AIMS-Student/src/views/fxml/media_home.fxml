@@ -11,14 +11,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="211.0" prefWidth="298.0" style="-fx-border-color: #ccd9ff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="200.0" prefWidth="298.0" style="-fx-border-color: #ccd9ff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fx:id="mediaImage" fitHeight="152.0" fitWidth="160.0" layoutX="14.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../media/nguyenlm/DriverD/Documents/UNIVERSITY/PERSONAL/PROJECT/Java/TA-TKXDPM/AIMS/assets/images/book2." />
          </image>
       </ImageView>
-      <Pane layoutX="200.0" layoutY="-1.0" prefHeight="210.0" prefWidth="110.0">
+      <Pane layoutX="200.0" layoutY="-1.0" prefHeight="200.0" prefWidth="110.0">
          <children>
             <VBox prefHeight="39.0" prefWidth="110.0">
                <children>
@@ -29,11 +29,11 @@
                   </Label>
                </children>
             </VBox>
-            <VBox layoutY="39.0" prefHeight="170.0" prefWidth="110.0" style="-fx-border-color: #80ff80;">
+            <VBox layoutY="39.0" prefHeight="160.0" prefWidth="110.0" style="-fx-border-color: #80ff80;">
                <children>
                   <HBox alignment="CENTER" prefHeight="32.0" prefWidth="106.0">
                      <children>
-                        <Pane prefHeight="45.0" prefWidth="55.0">
+                        <Pane prefHeight="40.0" prefWidth="55.0">
                            <children>
                               <Label alignment="CENTER" layoutX="4.0" layoutY="10.0" prefHeight="16.0" prefWidth="51.0" text="Price">
                                  <font>
@@ -42,7 +42,7 @@
                               </Label>
                            </children>
                         </Pane>
-                        <Pane prefHeight="53.0" prefWidth="61.0">
+                        <Pane prefHeight="48.0" prefWidth="61.0">
                            <children>
                               <Label fx:id="mediaPrice" layoutX="8.0" layoutY="10.0" prefHeight="16.0" prefWidth="49.0" text="100" />
                            </children>

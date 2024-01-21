@@ -24,6 +24,10 @@ import views.screen.BaseScreenHandler;
 import views.screen.invoice.InvoiceScreenHandler;
 import views.screen.popup.PopupScreen;
 
+// * Control Coupling: Utilizes direct method calls from controllers, creating tight dependencies.
+// * Cohesion: Low cohesion observed due to handling multiple functionalities in a single class.
+
+// Control Coupling: Utilizes direct method calls from controllers, creating tight dependencies.
 public class ShippingScreenHandler extends BaseScreenHandler implements Initializable {
 
 	@FXML
@@ -74,6 +78,8 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
 		messages.put("instructions", instructions.getText());
 		messages.put("province", province.getValue());
 		try {
+			//  * Cohesion: This method is responsible for both processing and validating delivery information,
+            //    which may indicate a need for separating concerns and improving cohesion.
 			// process and validate delivery info
 			getBController().processDeliveryInfo(messages);
 		} catch (InvalidDeliveryInfoException e) {
@@ -95,12 +101,22 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
 		InvoiceScreenHandler.show();
 	}
 
+
+	//  Control coupling: Retrieves the PlaceOrderController directly from the super class.
 	public PlaceOrderController getBController(){
 		return (PlaceOrderController) super.getBController();
 	}
-
 	public void notifyError(){
 		// TODO: implement later on if we need
 	}
+
+	// SOLUTION: Separation of concerns: Process and validate delivery info in distinct methods
+    // private void processAndValidateDeliveryInfo(HashMap messages) throws InvalidDeliveryInfoException {
+    //     try {
+    //         getBController().processDeliveryInfo(messages);
+    //     } catch (InvalidDeliveryInfoException e) {
+    //         throw new InvalidDeliveryInfoException(e.getMessage());
+    //     }
+    // }
 
 }

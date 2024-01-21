@@ -6,20 +6,25 @@ import java.sql.SQLException;
 import java.util.logging.Logger;
 
 import common.exception.MediaNotAvailableException;
+import controller.ViewCartController;
 import entity.cart.Cart;
 import entity.cart.CartMedia;
 import entity.media.Media;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import utils.Configs;
 import utils.Utils;
 import views.screen.FXMLScreenHandler;
+import views.screen.addMedia.AddBook;
 import views.screen.home.HomeScreenHandler;
 import views.screen.popup.PopupScreen;
+import views.screen.media.ViewMedia;
 
 public class MediaHandler extends FXMLScreenHandler{
 
@@ -34,12 +39,18 @@ public class MediaHandler extends FXMLScreenHandler{
 
     @FXML
     protected Label mediaAvail;
+    
+    @FXML
+    protected CheckBox checkDelete;
 
     @FXML
     protected Spinner<Integer> spinnerChangeNumber;
 
     @FXML
     protected Button addToCartBtn;
+    
+	@FXML
+	protected Button btnView;
 
     private static Logger LOGGER = Utils.getLogger(MediaHandler.class.getName());
     private Media media;
@@ -85,7 +96,31 @@ public class MediaHandler extends FXMLScreenHandler{
         setMediaInfo();
     }
 
-    public Media getMedia(){
+    public MediaHandler(String screenPath, Media media, AdminHomeScreenHandler home) throws IOException, SQLException {
+    	super(screenPath);
+        this.media = media;
+        this.home = home;	
+        
+        checkDelete.setOnMouseClicked(event -> {
+        	if (checkDelete.isSelected()) {
+        		if (home.getDeleteQueueSize() >= 10) checkDelete.setSelected(false);
+        		else home.bufferDeleteQueue(media, true);
+        	}
+        	else home.bufferDeleteQueue(media, false);
+        });
+        
+        btnView.setOnMouseClicked(event -> {
+        	try {
+				home.viewDetailScreen(this.media);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        });
+        setMediaInfo();
+    }
+
+	public Media getMedia(){
         return media;
     }
 
@@ -100,7 +135,7 @@ public class MediaHandler extends FXMLScreenHandler{
         mediaTitle.setText(media.getTitle());
         mediaPrice.setText(Utils.getCurrencyFormat(media.getPrice()));
         mediaAvail.setText(Integer.toString(media.getQuantity()));
-        spinnerChangeNumber.setValueFactory(
+        if (spinnerChangeNumber != null) spinnerChangeNumber.setValueFactory(
             new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 1)
         );
 
